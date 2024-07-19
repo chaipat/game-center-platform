@@ -1,0 +1,1 @@
+* * * * * /usr/local/bin/php -d register_argc_argv=On /var/www/artisan schedule:run

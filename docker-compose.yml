@@ -1,0 +1,69 @@
+version: "3.8"
+
+x-logging: &default-logging
+  options:
+    max-size: "10m"
+    max-file: "15"
+    compress: "true"
+
+services:
+  # PHP + NGINX Service
+  game-platform:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: game-platform-dev
+    restart: unless-stopped
+    ports:
+      - "5000:80"
+    volumes:
+      - ./src:/var/www
+    depends_on:
+      - db
+      - redis-game-platform
+    logging: *default-logging
+
+  # MySQL Service
+  db:
+    image: mysql:8.0
+    container_name: db_platform
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: platform
+      MYSQL_USER: platform
+      MYSQL_PASSWORD: MySqlPa55w0rd
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+    volumes:
+      - db_data:/var/lib/mysql
+    logging: *default-logging
+
+  # phpMyAdmin Service
+  phpmyadmin:
+    platform: linux/x86_64
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_platform
+    restart: unless-stopped
+    ports:
+      - "5001:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      - db
+    logging: *default-logging
+
+  # Redis Service
+  redis-game-platform:
+    image: redis:7.0-alpine
+    container_name: redis-game-platform
+    restart: unless-stopped
+    command: redis-server --requirepass RedisPa55w0rd
+    ports:
+      - "6379:6379"
+    logging: *default-logging
+
+# Volumes
+volumes:
+  db_data:
