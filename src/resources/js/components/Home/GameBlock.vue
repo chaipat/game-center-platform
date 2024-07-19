@@ -1,0 +1,71 @@
+<template>
+  <v-hover v-slot="{ hover }">
+    <v-card :elevation="hover ? 12 : 2">
+      <router-link :to="game.route" class="text-decoration-none">
+        <v-img
+          :src="game.banner"
+          class="game-banner align-center text-center"
+          :class="{ hover }"
+          :aspect-ratio="1"
+          max-width="350px"
+          max-height="350px"
+        >
+          <template #default>
+            <v-card-title class="justify-center">
+              <v-chip color="rgba(0, 0, 0, 0.4)" label x-large pill text-color="white" class="font-weight-thin text-uppercase">
+                {{ game.name }}
+              </v-chip>
+            </v-card-title>
+          </template>
+          <template #placeholder>
+            <v-skeleton-loader type="image" class="fill-height" />
+          </template>
+        </v-img>
+      </router-link>
+      <v-card-subtitle v-if="game.provider">
+        {{ game.provider.name }}
+      </v-card-subtitle>
+    </v-card>
+  </v-hover>
+</template>
+<script>
+export default {
+  props: {
+    game: {
+      type: Object,
+      required: true
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+.game-banner {
+  &.v-image {
+    &::v-deep {
+      .v-responsive__sizer {
+        height: 100% !important;
+        transition: all 0.5s;
+        background: rgba(0, 0, 0, 0);
+      }
+
+      .v-skeleton-loader {
+        .v-skeleton-loader__image {
+          height: 100%;
+        }
+      }
+    }
+
+    &.hover {
+      &::v-deep {
+        .v-responsive__sizer {
+          background: rgba(0, 0, 0, 0.55) !important;
+        }
+      }
+    }
+
+    .v-chip {
+      cursor: pointer;
+    }
+  }
+}
+</style>

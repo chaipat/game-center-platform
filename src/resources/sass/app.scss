@@ -1,0 +1,267 @@
+body {
+    .v-application {
+      overflow-x: clip;
+      &, & .title, & .subtitle-1, & .subtitle-2, & .body-1, & .body-2 {
+        font-family: var(--body-font), sans-serif !important;
+      }
+  
+      .text-h1,
+      .text-h2,
+      .text-h3,
+      .text-h4,
+      .text-h5,
+      .text-h6,
+      .text-headline,
+      .text-title,
+      .text-subtitle-1,
+      .text-subtitle-2,
+      .text-button,
+      .text-caption,
+      .text-overline,
+      .v-card .headline {
+        font-family: var(--body-font), sans-serif !important;
+      }
+  
+      .v-card .v-toolbar__title {
+        font-family: var(--heading-font), sans-serif !important;
+      }
+      // .v-toolbar__title {
+      //   font-weight: 700;
+      // }
+    }
+  }
+
+@mixin light-scrollbar {
+  &::-webkit-scrollbar-track {
+    background: var(--v-secondary-lighten5);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--v-secondary-lighten2);
+    border: 3px solid var(--v-secondary-lighten5);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--v-secondary-lighten2);
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+@mixin dark-scrollbar {
+  &::-webkit-scrollbar-track {
+    background: var(--v-secondary-lighten2);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 5px;
+    background: var(--v-secondary-darken1);
+    border: 3px solid var(--v-secondary-lighten2);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--v-secondary-darken1);
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--v-anchor-base)
+}
+
+.width-auto {
+  width: auto !important;
+}
+
+.game-snackbar {
+  > div {
+    width: 370px;
+  }
+}
+
+.v-input {
+  &.text-center {
+    input {
+      text-align: center;
+    }
+  }
+}
+
+.v-dialog {
+  .about-text {
+    max-height: 60vh;
+    overflow-y: scroll;
+  }
+}
+
+.v-parallax {
+  .v-parallax__content {
+    padding: 0;
+  }
+}
+
+.game-container {
+  .v-badge {
+    .v-badge__badge {
+      z-index: 10;
+    }
+  }
+}
+
+.static-background {
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.v-data-table tbody tr.v-data-table__empty-wrapper:hover:not(.v-data-table__expanded__content) {
+  background: inherit;
+}
+
+.input-with-button {
+  .v-input__append-inner {
+    margin-top: 10px;
+  }
+}
+
+.wrap-long-text {
+  table {
+    table-layout: fixed;
+
+    tbody {
+      tr {
+        td {
+          overflow-wrap: break-word;
+        }
+      }
+    }
+  }
+}
+
+#chat {
+  .v-navigation-drawer__content {
+    overflow-y: hidden;
+
+    .chat-messages-container {
+      height: 80%;
+      max-height: 80%;
+
+      // @todo: make custom scrollbar work work in the chat window
+      &.theme--light {
+        @include light-scrollbar
+      }
+
+      &.theme--dark {
+        @include dark-scrollbar
+      }
+
+      .v-list-item__content {
+        p {
+          font-size: 14px;
+          line-height: 14px;
+        }
+
+        .link {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.light-scrollbar {
+  @include light-scrollbar
+}
+
+.dark-scrollbar {
+  @include dark-scrollbar
+}
+
+.v-navigation-drawer {
+  .v-navigation-drawer__content {
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+  }
+
+  &.theme--light {
+    .v-navigation-drawer__content {
+      @include light-scrollbar
+    }
+  }
+
+  &.theme--dark {
+    .v-navigation-drawer__content {
+      @include dark-scrollbar
+    }
+  }
+}
+  .font-Orbitron{
+    font-family: var(--heading-font), sans-serif !important;
+  }
+  
+  .gold-gradient {
+    background: linear-gradient(90deg, #FAEB06 0%, #F6B705 84.1%, #F5B105 100%);
+    color: black !important;
+  }
+
+  .text-gold-gradient{
+    background: linear-gradient(to right, #faeb06, #f5b105) !important;
+    background-clip: text !important;
+    color: transparent !important;
+  }
+
+  .btn__font{
+    font-weight: 600;
+    text-transform: unset !important; 
+    letter-spacing: unset;
+  }
+
+
+  .blur {
+    backdrop-filter: blur(5px);
+  }
+
+//   .v-text-field--outlined >>> fieldset, .v-text-field--outlined >>> fieldset:hover {
+//     padding: 0.5rem;
+//     border: double 1px transparent;
+//     border-radius: 6px;
+//     background-image: linear-gradient(#1e1e1e, #1e1e1e),
+//       linear-gradient(16deg, #faeb06, #f5b105);
+//     background-origin: border-box;
+//     background-clip: padding-box, border-box;
+//     border: 1px solid;
+//     height: 61px;
+//     align-items: center;
+//   }
+  
+//   .error--text >>> fieldset {
+//     border-color: #fa0606;
+//   }
+  
+
+
+
+
+
+  @media only screen and (max-width: 959px) {
+    .v-stepper:not(.v-stepper--vertical) .v-stepper__label {
+      display: flex !important;
+    }
+  }

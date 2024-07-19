@@ -1,0 +1,27 @@
+{
+    "id": "multiplayer-blackjack",
+    "name": "Multiplayer Blackjack",
+    "type": "game",
+    "description": "This add-on implements Multiplayer Blackjack game.",
+    "providers": [
+        "Packages\\MultiplayerBlackjack\\Providers\\PackageServiceProvider"
+    ],
+    "base_path": "multiplayer-blackjack",
+    "source_path": "src",
+    "namespace": "Packages\\MultiplayerBlackjack\\",
+    "static": {},
+    "system_requirements": [
+        {
+            "type": "config",
+            "vars": [
+                "broadcasting.connections.pusher.app_id",
+                "broadcasting.connections.pusher.key",
+                "broadcasting.connections.pusher.secret"
+            ],
+            "title": "Pusher integration is required"
+        }
+    ],
+    "purchase_url": "https://codecanyon.net/item/multiplayer-blackjack-addon-for-stake-casino-gaming-platform/26635626",
+    "min_app_version": "1.21.0",
+    "hash": "84029c2d1c8b54a1a7afea39bc6550c4"
+}

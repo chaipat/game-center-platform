@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/app/Gilroy-Light.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/app/Gilroy-Regular.ttf') format('truetype');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/app/Gilroy-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/app/Gilroy-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/app/Gilroy-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+}
+
+:root {
+  --body-font: 'Gilroy', sans-serif;
+  --body-font-500: 'Gilroy-500', sans-serif;
+  --heading-font: 'Orbitron', sans-serif;
+  --gradient-primary-lr: linear-gradient(
+    90deg,
+    #faeb06 0%,
+    #f6b705 84.1%,
+    #f5b105 100%
+  );
+  /* --gradient-primary-lr: linear-gradient(to right, #f6b605, #faec06); */
+  --gradient-primary-tb: linear-gradient(#f6b605, #faec06);
+  --black-russian: #18181c;
+  --input-height: 61px;
+}
+
+.bg-gradient-primary {
+  background: var(--gradient-primary-lr) !important;
+}
+
+.bg-black-russian {
+  background: var(--black-russian) !important;
+}
+
+.app-button-primary {
+  font-family: var(--body-font);
+  color: #000 !important;
+  font-size: 14px !important;
+  font-weight: 700;
+  line-height: 20px !important;
+  display: flex;
+  height: 40px;
+  width: 100%;
+  max-width: 200px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  background: var(--gradient-primary-lr);
+}
+
+.app-text-primary {
+  background: var(--gradient-primary-lr);
+  background-clip: text;
+  color: transparent;
+  width: fit-content;
+}
+.app-title {
+  background: var(--gradient-primary-lr);
+  background-clip: text;
+  color: transparent;
+  width: fit-content;
+  font-family: var(--heading-font);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+}
+
+.app-tab-vertical-wrapper {
+  display: flex;
+}
+.app-tab-vertical-wrapper .v-tabs {
+  width: auto;
+  margin-right: 24px;
+}
+.app-tab-vertical-wrapper .v-tabs-items {
+  margin-top: 0px !important;
+}
+
+.app-tab-menu .v-tab--active.v-tab:not(:focus) {
+  background: rgba(101, 101, 101, 0.2);
+}
+
+.app-tab-menu .v-tab--active.v-tab:not(:focus) span,
+.v-tab--active.v-tab {
+  background: var(--gradient-primary-lr);
+  background-clip: text;
+  color: transparent !important;
+}
+.app-tab-menu.theme--dark.v-tabs > .v-tabs-bar {
+  min-width: 200px;
+}
+.app-tab-menu.theme--dark.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active),
+.app-tab-menu.theme--dark.v-tabs
+  > .v-tabs-bar
+  .v-tab:not(.v-tab--active)
+  > .v-icon,
+.app-tab-menu.theme--dark.v-tabs
+  > .v-tabs-bar
+  .v-tab:not(.v-tab--active)
+  > .v-btn,
+.app-tab-menu.theme--dark.v-tabs > .v-tabs-bar .v-tab--disabled {
+  color: white !important;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.25px;
+}
+
+/* v list */
+.app-menu-list .v-list-item--link:before {
+  background: var(--gradient-primary-lr) !important;
+  bottom: 0;
+  content: '';
+  left: 12px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 12px;
+  top: 0;
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  border-radius: 4px;
+}
+.app-menu-list .theme--dark.v-list-item:hover::before {
+  opacity: 1 !important;
+}
+.app-menu-list .theme--dark.v-list-item:focus::before {
+  opacity: 1 !important;
+}
+.app-menu-list .theme--dark.v-list-item--active:hover::before,
+.app-menu-list .theme--dark.v-list-item--active::before {
+  opacity: 1 !important;
+}
+.app-menu-list .theme--dark.v-list-item--active:focus::before {
+  opacity: 1 !important;
+}
+.app-menu-list .theme--dark.v-list-item.v-list-item--highlighted::before {
+  opacity: 1 !important;
+}
+.app-menu-list .v-list-item {
+  padding: 0 32px;
+}
+
+.app-menu-list .v-application--is-ltr .v-list-item__action:first-child,
+.app-menu-list .v-application--is-ltr .v-list-item__icon:first-child {
+  margin-right: 12px;
+}
+.app-menu-list .v-list-item__content {
+  z-index: 10;
+}
+.app-menu-list .v-list-item--active {
+  color: black !important;
+}
+.app-menu-list .v-list-item--active .v-icon {
+  color: black !important;
+}
+
+.app-menu-list-group .v-list-group__items .v-list-item--link:before {
+  background: var(--gradient-primary-lr) !important;
+  opacity: 0.2;
+  border-radius: 0px;
+}
+
+.app-menu-list-group .v-list-group__items .v-list-item--link:last-child:before {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.app-menu-list-group .theme--dark.v-list-item:focus::before,
+.app-menu-list-group .theme--dark.v-list-item:hover::before {
+  opacity: 0.6 !important;
+}
+
+.setting-card {
+  border-radius: 4px;
+  background: #27272b;
+  padding: 24px;
+  width: 100%;
+}
+.setting-card--title {
+  color: #fff;
+  font-family: var(--heading-font);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 15px;
+  margin-bottom: 30px;
+}
+.setting-card--subtitle {
+  color: #fff;
+  font-family: var(--heading-font);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15px;
+  margin-bottom: 26px;
+}
+
+.v-list.table-action-list.v-sheet.theme--dark {
+  padding: 12px 7px 12px 7px;
+  border-radius: 4px;
+  gap: 10px;
+  display: flex;
+  background-color: #272727 !important;
+  flex-direction: column;
+}
+.v-list.table-action-list
+  .v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
+  padding: 0px 8px;
+  min-width: 112px;
+  min-height: fit-content;
+}
+.v-list.table-action-list .v-list-item .v-list-item__icon {
+  margin: 0px 10px 0px 0px;
+  align-self: center;
+}
+
+.v-list.table-action-list .v-list-item .v-list-item__content {
+  padding: 0px;
+}
+
+.app-input-switch .v-input--switch__track.theme--dark.primary--text {
+  color: var(--v-primary-base) !important;
+  caret-color: var(--v-primary-base) !important;
+}

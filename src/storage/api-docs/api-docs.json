@@ -1,0 +1,2159 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Platform API Documentation",
+        "description": "Platform api",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000",
+            "description": "Local server"
+        },
+        {
+            "url": "https://platform-dev.baanbaan.site",
+            "description": "Dev server"
+        }
+    ],
+    "paths": {
+        "/api/activity-logs": {
+            "post": {
+                "tags": [
+                    "Activity Logs"
+                ],
+                "summary": "Create activity log",
+                "operationId": "9b421582ed773656ed8b667904b824be",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "game_id": {
+                                        "type": "integer"
+                                    },
+                                    "activity": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Activity log created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User registration",
+                "operationId": "c7bb21a0d87049e161b8e4c9b0d909f2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "name",
+                                    "country_code",
+                                    "password",
+                                    "accept_consent"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "maxLength": 25,
+                                        "minLength": 6,
+                                        "example": "user111"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 25,
+                                        "minLength": 4,
+                                        "example": "myname"
+                                    },
+                                    "country_code": {
+                                        "type": "string",
+                                        "maxLength": 4,
+                                        "example": "+66"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "maxLength": 25,
+                                        "minLength": 4,
+                                        "example": "123456"
+                                    },
+                                    "accept_consent": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Registration successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Registration failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User login",
+                "operationId": "dd51a484b7fa0f97c7680fdbde14cf5f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "maxLength": 32,
+                                        "minLength": 6,
+                                        "example": "user03"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "maxLength": 32,
+                                        "minLength": 6,
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "type": "json"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid credentials"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/me": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Retrieve current user details",
+                "operationId": "b5de204f5e452ef51327c691aa99e77c",
+                "responses": {
+                    "200": {
+                        "description": "User details retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/updateme": {
+            "put": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Update user details",
+                "operationId": "fd6bda80b39651256350cc130e9f7340",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 25,
+                                        "minLength": 6
+                                    },
+                                    "mobile_number": {
+                                        "type": "string",
+                                        "maxLength": 20
+                                    },
+                                    "contact": {
+                                        "type": "string",
+                                        "maxLength": 15
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User details updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/change-password": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Change user password",
+                "operationId": "58e67cdbde52513b62902b05abf9abcb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "new_password": {
+                                        "type": "string",
+                                        "minLength": 6
+                                    },
+                                    "new_password_confirmation": {
+                                        "type": "string",
+                                        "minLength": 6
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password changed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout user",
+                "operationId": "df9bdc6c7a6d9f20b983526b2ec0f698",
+                "responses": {
+                    "200": {
+                        "description": "Logged out successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logged out successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/check-token": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Check token validity",
+                "operationId": "794086fc4ac65a8f56b7ccfb5dee6464",
+                "responses": {
+                    "200": {
+                        "description": "Token validity checked successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string"
+                                                },
+                                                "exp_timestamp": {
+                                                    "type": "integer"
+                                                },
+                                                "exp": {
+                                                    "type": "string"
+                                                },
+                                                "game": {
+                                                    "type": "string"
+                                                },
+                                                "activity": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/set-password": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Set user password",
+                "operationId": "d2f11284c578bdc3000d97b74faeb3f2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "maxLength": 25,
+                                        "minLength": 6
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "maxLength": 25,
+                                        "minLength": 4
+                                    },
+                                    "ref_code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password set successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error or username not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/check-username": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Check if username is available",
+                "operationId": "3deca532c9b6943a4f57f1415578eb0b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "maxLength": 25,
+                                        "minLength": 6
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Username available",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Can use username"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Username not available or validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/upload": {
+            "post": {
+                "tags": [
+                    "Upload"
+                ],
+                "summary": "Upload user avatar",
+                "operationId": "174f724af167e06677146c84cf617bf6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Avatar uploaded successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "https://example.com/avatar/image.jpg"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "File not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/get-link": {
+            "get": {
+                "tags": [
+                    "Upload"
+                ],
+                "summary": "Get user avatar link",
+                "operationId": "ed147a1e8d0b589afaff63c8c22eea14",
+                "responses": {
+                    "200": {
+                        "description": "Avatar link retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "https://example.com/avatar/image.jpg"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "User not authenticated or avatar link not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/topup": {
+            "post": {
+                "tags": [
+                    "Topup"
+                ],
+                "summary": "Create a new topup transaction",
+                "operationId": "d49dcd3c51f82be9e11664ce8285f1d8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "amount": {
+                                        "type": "number",
+                                        "example": "200"
+                                    },
+                                    "card_name": {
+                                        "type": "string",
+                                        "example": "Test Card"
+                                    },
+                                    "card_number": {
+                                        "type": "string",
+                                        "example": "123456789"
+                                    },
+                                    "expiration_date": {
+                                        "type": "string",
+                                        "example": "08/24"
+                                    },
+                                    "cvc": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "TOPUP",
+                                            "WITHDRAW",
+                                            "BONUS",
+                                            "REFER_FRIEND"
+                                        ],
+                                        "example": "TOPUP"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "user": {
+                                                    "description": "User object",
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error occurred",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/transaction/betbehind": {
+            "post": {
+                "tags": [
+                    "Transactions Bet Behind"
+                ],
+                "summary": "Create transaction behind",
+                "operationId": "e3537cf144efcd401b143cff0a61b3dc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "round_id": {
+                                        "type": "integer"
+                                    },
+                                    "bet": {
+                                        "type": "number",
+                                        "format": "float"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Transaction bet created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "balance": {
+                                                    "type": "number",
+                                                    "format": "float"
+                                                },
+                                                "total_bet": {
+                                                    "type": "number",
+                                                    "format": "float"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error or not enough money",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/transaction/bet": {
+            "get": {
+                "tags": [
+                    "Transactions Bet"
+                ],
+                "summary": "Get transaction Bet",
+                "operationId": "b1d54d29d5bc370b18c44fbe3c24175d",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of transactions per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "startDate",
+                        "in": "query",
+                        "description": "Start date for filtering transactions",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "endDate",
+                        "in": "query",
+                        "description": "End date for filtering transactions",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "game_id",
+                        "in": "query",
+                        "description": "ID of the game for filtering transactions",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "round_id",
+                        "in": "query",
+                        "description": "ID of the round for filtering transactions",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "ID of the user for filtering transactions",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Transactions Bet"
+                ],
+                "summary": "Create a new transaction",
+                "operationId": "8c2ac89a430df40bc236741d9e68ecd0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "round_id",
+                                    "game_id",
+                                    "bet"
+                                ],
+                                "properties": {
+                                    "round_id": {
+                                        "type": "integer"
+                                    },
+                                    "game_id": {
+                                        "type": "integer"
+                                    },
+                                    "hand": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "bet": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "10.5"
+                                    },
+                                    "multi": {
+                                        "type": "string"
+                                    },
+                                    "profit": {
+                                        "type": "number",
+                                        "format": "float"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Transaction created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 123
+                                                },
+                                                "balance": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": "100.5"
+                                                },
+                                                "total_bet": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": "10.5"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error or not enough money",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "not enough money"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/transaction/blackjack/bet": {
+            "post": {
+                "tags": [
+                    "Transactions Bet"
+                ],
+                "summary": "Create a new blackjack transaction bet",
+                "operationId": "6579926880c27f2de3e86177d9043ce9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "table_id": {
+                                        "type": "string",
+                                        "example": "blackjack_table_1"
+                                    },
+                                    "bet_id": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    },
+                                    "bet": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 10.5
+                                    },
+                                    "bet_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "NORMAL",
+                                            "SPLIT",
+                                            "PERFECT_PAIR",
+                                            "PLUSTHREE",
+                                            "DOUBLE_DOWN",
+                                            "INSURANCE",
+                                            "BET_BEHIND",
+                                            "BET_BEHIND_SPLIT",
+                                            "BET_BEHIND_INSURANCE",
+                                            "BET_BEHIND_DOUBLE",
+                                            "BET_BEHIND_DOUBLE_SPLIT"
+                                        ],
+                                        "example": "BET_BEHIND_SPLIT"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 400
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/transaction/bet/{id}": {
+            "put": {
+                "tags": [
+                    "Transactions Bet"
+                ],
+                "summary": "Update an existing transaction",
+                "operationId": "de5a33d578ca64c1a0ec158b1207de10",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the transaction to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "round_id",
+                                    "game_id",
+                                    "bet"
+                                ],
+                                "properties": {
+                                    "round_id": {
+                                        "type": "integer"
+                                    },
+                                    "game_id": {
+                                        "type": "integer"
+                                    },
+                                    "hand": {
+                                        "type": "integer"
+                                    },
+                                    "bet": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "10.5"
+                                    },
+                                    "multi": {
+                                        "type": "string"
+                                    },
+                                    "profit": {
+                                        "type": "number",
+                                        "format": "float"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Transaction updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 123
+                                                },
+                                                "balance": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": "100.5"
+                                                },
+                                                "total_bet": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": "10.5"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error or not enough money",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "not enough money"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/transaction": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Get transactions",
+                "operationId": "0ce53eed265dae2c2b365f7b55ef986e",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of transactions per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "startDate",
+                        "in": "query",
+                        "description": "Start date for filtering transactions",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "endDate",
+                        "in": "query",
+                        "description": "End date for filtering transactions",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer"
+                                        },
+                                        "first_page_url": {
+                                            "type": "string"
+                                        },
+                                        "from": {
+                                            "type": "integer"
+                                        },
+                                        "last_page": {
+                                            "type": "integer"
+                                        },
+                                        "last_page_url": {
+                                            "type": "string"
+                                        },
+                                        "next_page_url": {
+                                            "type": "string"
+                                        },
+                                        "path": {
+                                            "type": "string"
+                                        },
+                                        "per_page": {
+                                            "type": "integer"
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string"
+                                        },
+                                        "to": {
+                                            "type": "integer"
+                                        },
+                                        "total": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ERROR"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Create transaction",
+                "operationId": "d34ca8d02ef0be1323fc536bc0e15d3b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "game_id",
+                                    "data"
+                                ],
+                                "properties": {
+                                    "game_id": {
+                                        "type": "integer"
+                                    },
+                                    "data": {
+                                        "type": "array",
+                                        "items": {
+                                            "required": [
+                                                "round_id",
+                                                "user_id",
+                                                "amount"
+                                            ],
+                                            "properties": {
+                                                "round_id": {
+                                                    "type": "integer"
+                                                },
+                                                "user_id": {
+                                                    "type": "integer"
+                                                },
+                                                "amount": {
+                                                    "type": "number",
+                                                    "format": "float"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Transactions created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "create_count": {
+                                            "type": "integer",
+                                            "example": 3
+                                        },
+                                        "error_count": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/transaction/blackjack": {
+            "post": {
+                "tags": [
+                    "Transactions"
+                ],
+                "operationId": "532d398a8666723c84f373e932db90b9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "table_id": {
+                                        "type": "string",
+                                        "example": "blackjack_table_1"
+                                    },
+                                    "game_status": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "total_income": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "100.50"
+                                    },
+                                    "total_loss": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "20.25"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 400
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/transaction/{id}": {
+            "put": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Update an existing transaction",
+                "operationId": "241a71598425806afbfab9077faba2d2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the transaction to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "game_id",
+                                    "round_id",
+                                    "user_id",
+                                    "amount"
+                                ],
+                                "properties": {
+                                    "game_id": {
+                                        "type": "integer"
+                                    },
+                                    "round_id": {
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "amount": {
+                                        "type": "number",
+                                        "format": "float"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Transaction updated successfully"
+                    },
+                    "404": {
+                        "description": "Transaction not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "Authorization": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}
